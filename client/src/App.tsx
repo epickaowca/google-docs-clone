@@ -10,7 +10,9 @@ const App: FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<ListOfDocuments />}></Route>
-        <Route path="/document/:id" element={<TextEditor />}></Route>
+        <Route path="/document/doc1" element={<TextEditor />}></Route>
+        <Route path="/document/doc2" element={<TextEditor />}></Route>
+        <Route path="/document/doc3" element={<TextEditor />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
     </Router>

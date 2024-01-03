@@ -4,9 +4,15 @@ const io = require("socket.io")(3001, {
 });
 const Document = require("./models/document");
 
-mongoose.connect("mongodb://localhost/google-docs");
+try {
+  mongoose.connect("mongodb://localhost/google-docs");
+  console.log("mongodb connected");
+} catch (err) {
+  console.log("mongodb error:");
+  console.log(err);
+}
 
-const availableDocs = ["doc1", "doc2", "doc3", "doc4", "doc5"];
+const availableDocs = ["doc1", "doc2", "doc3"];
 
 const getDocsSizes = async () => {
   const sizes = {};
@@ -39,6 +45,19 @@ io.on("connection", async (socket) => {
     socket.on("save-document", async (data) => {
       await Document.findByIdAndUpdate(documentId, { data });
     });
+  });
+
+  socket.on("unsubscribe", async (documentId) => {
+    try {
+      socket.leave(documentId);
+      socket.broadcast.emit("user-count", await getDocsSizes());
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  socket.on("back-to-docs-list", async () => {
+    socket.emit("user-count", await getDocsSizes());
   });
 });
 

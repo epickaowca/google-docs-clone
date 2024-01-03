@@ -3,7 +3,7 @@ import Quill from "quill";
 import { Sources } from "quill";
 import "quill/dist/quill.snow.css";
 import { Socket } from "socket.io-client";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { socket as s } from "../../socket";
 import "./assets/styles.css";
 
@@ -21,12 +21,17 @@ const TOOLBAR_OPTIONS = [
 ];
 
 export const TextEditor: FC = () => {
-  const { id: documentId } = useParams();
+  const { pathname } = useLocation();
   const [socket, setSocket] = useState<Socket>();
   const [quill, setQuill] = useState<Quill>();
+  const documentId = pathname.split("/").slice(-1)[0];
 
   useEffect(function initializeSocketIo() {
     setSocket(s);
+
+    return () => {
+      s?.emit("unsubscribe", documentId);
+    };
   }, []);
 
   const wrapperRef = useCallback(function initializeQuill(
@@ -89,7 +94,7 @@ export const TextEditor: FC = () => {
 
       socket.emit("get-document", documentId);
     },
-    [socket, quill, documentId]
+    [socket, quill, pathname]
   );
 
   useEffect(
