@@ -1,0 +1,18 @@
+import { FC } from "react";
+import { Link } from "react-router-dom";
+
+type DocumentBoxProps = {
+  content: string;
+  activeUsers: number;
+};
+
+export const DocumentBox: FC<DocumentBoxProps> = ({ activeUsers, content }) => {
+  return (
+    <Link to={"/doc1"}>
+      <div className="list-doc">
+        <h1>{content}</h1>
+        <span>{activeUsers}</span>
+      </div>
+    </Link>
+  );
+};
