@@ -29,7 +29,7 @@ export const ListOfDocuments: FC = () => {
         right bottom corner indicates amount of active users
       </p>
       <hr></hr>
-      <div className="list-doc-container">
+      <main className="list-doc-container">
         <DocumentBox
           activeUsers={userCount.doc1}
           content="Document 1"
@@ -45,7 +45,7 @@ export const ListOfDocuments: FC = () => {
           content="Document 3"
           link={"/document/doc3"}
         />
-      </div>
+      </main>
     </div>
   );
 };

@@ -8,3 +8,10 @@ body {
   background-color: #f3f3f3;
   margin: 0;
 }
+
+.error-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
