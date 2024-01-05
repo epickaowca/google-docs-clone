@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
-const io = require("socket.io")(3001, {
-  cors: { origin: "http://localhost:3000", methods: ["GET", "POST"] },
+const io = require("socket.io")(process.env.PORT || 3001, {
+  cors: {
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
 });
 const Document = require("./models/document");
 

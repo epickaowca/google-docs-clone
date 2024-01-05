@@ -14,10 +14,10 @@ export const DocumentBox: FC<DocumentBoxProps> = ({
 }) => {
   return (
     <Link to={link}>
-      <div className="list-doc">
+      <article className="list-doc">
         <h1>{content}</h1>
         <span>{activeUsers}</span>
-      </div>
+      </article>
     </Link>
   );
 };
